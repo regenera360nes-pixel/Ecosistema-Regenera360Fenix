@@ -128,3 +128,21 @@ def format_currency(amount: float, currency: str = "USD") -> str:
         return f"€{amount:,.2f}"
     else:
         return f"{amount:,.2f} {currency}"
+
+
+def json_datetime_serializer(obj):
+    """
+    Custom JSON serializer for datetime objects
+    
+    Args:
+        obj: Object to serialize
+        
+    Returns:
+        ISO format string for datetime objects
+        
+    Raises:
+        TypeError: For non-serializable types
+    """
+    if isinstance(obj, datetime):
+        return obj.isoformat()
+    raise TypeError(f"Type {type(obj)} not serializable")
