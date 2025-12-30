@@ -31,14 +31,15 @@ def format_phone_number(phone: str) -> str:
     Returns:
         Formatted phone number
     """
+    # Already formatted
+    if phone.startswith('whatsapp:'):
+        return phone
+    
     # Remove all non-digit characters
     phone = ''.join(filter(str.isdigit, phone))
     
-    # Add whatsapp: prefix if not present
-    if not phone.startswith('whatsapp:'):
-        phone = f'whatsapp:+{phone}'
-    
-    return phone
+    # Add whatsapp: prefix with +
+    return f'whatsapp:+{phone}'
 
 
 def hash_sensitive_data(data: str) -> str:

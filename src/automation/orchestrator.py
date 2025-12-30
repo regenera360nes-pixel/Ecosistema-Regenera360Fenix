@@ -7,6 +7,7 @@ from typing import Optional, Dict, Any, List
 from datetime import datetime, timedelta
 import schedule
 import time
+import json
 from dotenv import load_dotenv
 import logging
 
@@ -150,7 +151,7 @@ class MedicalEcosystemOrchestrator:
             # Create issue in GitHub with report
             self.github.create_issue(
                 title=f"Daily Report - {report['date']}",
-                body=f"## Daily Ecosystem Report\n\n```json\n{report}\n```",
+                body=f"## Daily Ecosystem Report\n\n```json\n{json.dumps(report, indent=2, default=str)}\n```",
                 labels=["report", "automation"]
             )
             
@@ -177,7 +178,7 @@ class MedicalEcosystemOrchestrator:
             # Create comprehensive report
             self.github.create_issue(
                 title=f"Weekly Analytics - {analytics['week']}",
-                body=f"## Weekly Analytics Report\n\n```json\n{analytics}\n```",
+                body=f"## Weekly Analytics Report\n\n```json\n{json.dumps(analytics, indent=2, default=str)}\n```",
                 labels=["analytics", "weekly"]
             )
             
