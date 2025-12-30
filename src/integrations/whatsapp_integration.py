@@ -9,11 +9,8 @@ from twilio.base.exceptions import TwilioRestException
 from dotenv import load_dotenv
 import logging
 
-# Import utility function
-import sys
-from pathlib import Path
-sys.path.insert(0, str(Path(__file__).parent.parent))
-from utils.helpers import format_phone_number
+# Use relative import instead of sys.path manipulation
+from ..utils.helpers import format_phone_number
 
 load_dotenv()
 logger = logging.getLogger(__name__)

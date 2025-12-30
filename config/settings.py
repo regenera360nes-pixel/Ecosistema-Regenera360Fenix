@@ -19,6 +19,9 @@ class Settings(BaseSettings):
     APP_PORT: int = int(os.getenv("APP_PORT", "8000"))
     DEBUG: bool = os.getenv("DEBUG", "True").lower() == "true"
     
+    # Automation Settings
+    MAX_DAILY_TIP_RECIPIENTS: int = int(os.getenv("MAX_DAILY_TIP_RECIPIENTS", "10"))
+    
     # Huggingface
     HUGGINGFACE_API_KEY: Optional[str] = os.getenv("HUGGINGFACE_API_KEY")
     HUGGINGFACE_MODEL_ID: str = os.getenv("HUGGINGFACE_MODEL_ID", "microsoft/BioGPT-Large")

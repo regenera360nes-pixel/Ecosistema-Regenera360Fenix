@@ -20,6 +20,7 @@ from ..integrations import (
     GoogleBusinessIntegration
 )
 from ..utils import json_datetime_serializer
+from ...config.settings import settings
 
 load_dotenv()
 logging.basicConfig(level=logging.INFO)
@@ -78,9 +79,12 @@ class MedicalEcosystemOrchestrator:
             # Get patient list from Wix contacts
             contacts = self.wix.get_contact_submissions()
             
+            # Get max recipients from settings (configurable via env)
+            max_recipients = settings.MAX_DAILY_TIP_RECIPIENTS
+            
             # Send to patients (limited to avoid spam)
             sent_count = 0
-            for contact in contacts[:10]:  # Limit to 10 for demo
+            for contact in contacts[:max_recipients]:
                 phone = contact.get('phone')
                 if phone:
                     self.whatsapp.send_health_tip(phone, health_tip)

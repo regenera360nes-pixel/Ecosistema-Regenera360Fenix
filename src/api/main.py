@@ -6,6 +6,7 @@ from fastapi import FastAPI, HTTPException, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Optional, Dict, Any, List
 from pydantic import BaseModel
+from datetime import datetime
 import logging
 
 from ..integrations import (
@@ -77,7 +78,7 @@ async def health_check():
     """Health check endpoint"""
     return {
         "status": "healthy",
-        "timestamp": "2025-12-30T16:59:35.991Z"
+        "timestamp": datetime.now().isoformat()
     }
 
 
