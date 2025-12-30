@@ -9,6 +9,12 @@ from twilio.base.exceptions import TwilioRestException
 from dotenv import load_dotenv
 import logging
 
+# Import utility function
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from utils.helpers import format_phone_number
+
 load_dotenv()
 logger = logging.getLogger(__name__)
 
@@ -47,8 +53,8 @@ class WhatsAppBusinessIntegration:
             Message SID if successful
         """
         try:
-            if not to.startswith('whatsapp:'):
-                to = f'whatsapp:{to}'
+            # Format phone number properly
+            to = format_phone_number(to)
             
             params = {
                 'from_': self.phone_number,
@@ -80,8 +86,8 @@ class WhatsAppBusinessIntegration:
             Message SID if successful
         """
         try:
-            if not to.startswith('whatsapp:'):
-                to = f'whatsapp:{to}'
+            # Format phone number properly
+            to = format_phone_number(to)
             
             # Template format depends on your approved templates
             body = f"Template: {template_name}"

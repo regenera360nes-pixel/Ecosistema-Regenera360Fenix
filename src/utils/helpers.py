@@ -3,6 +3,7 @@ Utility functions for the medical ecosystem
 """
 import hashlib
 import secrets
+import html
 from datetime import datetime, timedelta
 from typing import Optional, Dict, Any
 
@@ -104,14 +105,10 @@ def sanitize_text(text: str) -> str:
         text: Text to sanitize
         
     Returns:
-        Sanitized text
+        Sanitized text with HTML entities escaped
     """
-    # Remove potentially harmful characters
-    unsafe_chars = ['<', '>', '"', "'", '&']
-    for char in unsafe_chars:
-        text = text.replace(char, '')
-    
-    return text.strip()
+    # Use HTML entity encoding for proper XSS protection
+    return html.escape(text).strip()
 
 
 def format_currency(amount: float, currency: str = "USD") -> str:

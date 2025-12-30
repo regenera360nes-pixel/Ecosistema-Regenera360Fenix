@@ -148,10 +148,16 @@ class MedicalEcosystemOrchestrator:
                 "google_business_info": self.google_business.get_location_info()
             }
             
+            # Custom JSON serializer for datetime objects
+            def json_serializer(obj):
+                if isinstance(obj, datetime):
+                    return obj.isoformat()
+                raise TypeError(f"Type {type(obj)} not serializable")
+            
             # Create issue in GitHub with report
             self.github.create_issue(
                 title=f"Daily Report - {report['date']}",
-                body=f"## Daily Ecosystem Report\n\n```json\n{json.dumps(report, indent=2, default=str)}\n```",
+                body=f"## Daily Ecosystem Report\n\n```json\n{json.dumps(report, indent=2, default=json_serializer)}\n```",
                 labels=["report", "automation"]
             )
             
@@ -175,10 +181,16 @@ class MedicalEcosystemOrchestrator:
                 "website_visits": 0
             }
             
+            # Custom JSON serializer for datetime objects
+            def json_serializer(obj):
+                if isinstance(obj, datetime):
+                    return obj.isoformat()
+                raise TypeError(f"Type {type(obj)} not serializable")
+            
             # Create comprehensive report
             self.github.create_issue(
                 title=f"Weekly Analytics - {analytics['week']}",
-                body=f"## Weekly Analytics Report\n\n```json\n{json.dumps(analytics, indent=2, default=str)}\n```",
+                body=f"## Weekly Analytics Report\n\n```json\n{json.dumps(analytics, indent=2, default=json_serializer)}\n```",
                 labels=["analytics", "weekly"]
             )
             
